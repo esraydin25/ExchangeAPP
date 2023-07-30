@@ -2,29 +2,37 @@ package com.example.exchangeapp.service;
 
 import com.example.exchangeapp.model.Currency;
 import com.example.exchangeapp.repository.CurrencyRepository;
-import com.example.exchangeapp.service.dto.CreateCurrencyResponse;
+import com.example.exchangeapp.dto.GetAllCurrenciesResponse;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
-public class CurrencyImpl implements CurrencyService{
+public class CurrencyServiceImpl implements CurrencyService{
 
     private final ModelMapper modelMapper;
     private final CurrencyRepository repository;
+
+
     @Override
-    public List<CreateCurrencyResponse> add() {
-        for(Currency currency:currencyList){
-             repository.save(currency);
-        }
-        List<CreateCurrencyResponse> responses=currencyList
-                .stream()
-                .map(currency -> modelMapper.map(currency, CreateCurrencyResponse.class))
-                .toList();
+    public List<GetAllCurrenciesResponse> getAll() {
+         List<Currency> currencies=repository.findAll();
+         List<GetAllCurrenciesResponse> responses=currencies
+                 .stream()
+                 .map(currency -> modelMapper.map(currency,GetAllCurrenciesResponse.class))
+                 .toList();
         return responses;
+    }
+
+    @Override
+    public void add() {
+        String json=new JsonWriter().getConvertJsonDataToString();
+        List<Currency> currencyList=new JsonParser().getJsonStringParser(json);
+        for(Currency currency:currencyList){
+            repository.save(currency);
+        }
     }
 }

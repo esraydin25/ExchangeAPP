@@ -1,4 +1,4 @@
-package com.example.exchangeapp.service.dto;
+package com.example.exchangeapp.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

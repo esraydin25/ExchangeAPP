@@ -11,15 +11,15 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "currenties")
-public class Currenty {
+@Table(name = "currencies")
+public class Currency {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    private String currencyName;
     private String currencyUnit;
     private String buying;
     private String selling;
     private String change ;
-
 
 }
