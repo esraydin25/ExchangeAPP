@@ -1,6 +1,5 @@
-package com.example.exchangeapp.model;
+package com.example.exchangeapp.dto;
 
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -8,20 +7,16 @@ import lombok.Setter;
 
 import java.time.LocalDateTime;
 
-@Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "currencies")
-public class Currency {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class GetCurrencyResponse {
     private int id;
     private String currencyName;
     private String currencyUnit;
     private String buying;
     private String selling;
-    private String change ;
+    private String change;
 
 }

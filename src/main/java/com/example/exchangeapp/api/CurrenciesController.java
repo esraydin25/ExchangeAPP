@@ -1,12 +1,11 @@
 package com.example.exchangeapp.api;
 
+import com.example.exchangeapp.dto.GetCurrencyResponse;
 import com.example.exchangeapp.service.CurrencyService;
 import com.example.exchangeapp.dto.GetAllCurrenciesResponse;
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -21,9 +20,20 @@ public class CurrenciesController {
         return service.getAll();
     }
 
+    @GetMapping("/{name}")
+    public GetCurrencyResponse getByName(@PathVariable String name){
+        return service.getByCurrencyName(name);
+    }
+
     @PostMapping
     public void add(){
         service.add();
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(@PathVariable int id){
+        service.delete(id);
     }
 
 }
